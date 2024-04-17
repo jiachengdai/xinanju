@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.oldCare.mapper.TheElderlyMapper">
+
+    <resultMap id="BaseResultMap" type="com.project.oldCare.entity.TheElderly">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="seniorCitizenNumber" column="senior_citizen_number" jdbcType="VARCHAR"/>
+            <result property="fullName" column="full_name" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="VARCHAR"/>
+            <result property="familyMembersId" column="family_members_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+            <result property="bedId" column="bed_id" jdbcType="INTEGER"/>
+            <result property="disDegree" column="dis_degree" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,senior_citizen_number,full_name,
+        gender,family_members_id,user_id,
+        create_time,update_time,phone_number,
+        bed_id,dis_degree
+    </sql>
+</mapper>

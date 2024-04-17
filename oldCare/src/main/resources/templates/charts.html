@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="pie" style="width: 800px;height:600px;"></div>
+<div style="width: 50px;"></div>
+<div id="dash" style="width: 800px;height:600px;"></div>
+<div style="height: 50px;"></div>
+<div id="Col" style="width: 800px;height:600px;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+
+    var chartDom = document.getElementById('pie');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        legend: {
+            top: 'bottom'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        series: [
+            {
+                name: 'Nightingale Chart',
+                type: 'pie',
+                radius: [50, 250],
+                center: ['50%', '50%'],
+                roseType: 'area',
+                itemStyle: {
+                    borderRadius: 8
+                },
+                data: [
+                ]
+            }
+        ]
+    };
+
+    fetch("/echarts/pie").then(response => response.json()).then(res=>{
+        res.forEach(item => {
+            option.series[0].data.push({name: item.name,value: item.count})
+        })
+
+        console.log(option)
+        option && myChart.setOption(option);
+    })
+
+
+    var chartDom2 = document.getElementById('dash');
+    var myChart2 = echarts.init(chartDom2);
+    var option2;
+
+    const gaugeData = [
+        {
+            value: 20,
+            name: '重度失能',
+            title: {
+                offsetCenter: ['0%', '-30%']
+            },
+            detail: {
+                valueAnimation: true,
+                offsetCenter: ['0%', '-20%']
+            }
+        },
+        {
+            value: 40,
+            name: '中度失能',
+            title: {
+                offsetCenter: ['0%', '0%']
+            },
+            detail: {
+                valueAnimation: true,
+                offsetCenter: ['0%', '10%']
+            }
+        },
+        {
+            value: 60,
+            name: '能力完好或轻度失能',
+            title: {
+                offsetCenter: ['0%', '30%']
+            },
+            detail: {
+                valueAnimation: true,
+                offsetCenter: ['0%', '40%']
+            }
+        }
+    ];
+    option2 = {
+        series: [
+            {
+                type: 'gauge',
+                startAngle: 90,
+                endAngle: -270,
+                pointer: {
+                    show: false
+                },
+                progress: {
+                    show: true,
+                    overlap: false,
+                    roundCap: true,
+                    clip: false,
+                    itemStyle: {
+                        borderWidth: 1,
+                        borderColor: '#464646'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 40
+                    }
+                },
+                splitLine: {
+                    show: false,
+                    distance: 0,
+                    length: 10
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false,
+                    distance: 50
+                },
+                data: gaugeData,
+                title: {
+                    fontSize: 14
+                },
+                detail: {
+                    width: 50,
+                    height: 14,
+                    fontSize: 14,
+                    color: 'inherit',
+                    borderColor: 'inherit',
+                    borderRadius: 20,
+                    borderWidth: 1,
+                    formatter: '{value}%'
+                }
+            }
+        ]
+    };
+    setInterval(function () {
+
+        fetch("/echarts/dash").then(response => response.json()).then(res=> {
+            res.forEach(item => {
+                if (item.name == "重度失能")
+                    gaugeData[0].value = +(item.count * 100).toFixed(2);
+                else if (item.name == '中度失能')
+                    gaugeData[1].value = +(item.count * 100).toFixed(2);
+                else if (item.name == '能力完好或轻度失能')
+                    gaugeData[2].value = +(item.count * 100).toFixed(2);
+                else{
+                    gaugeData[0].value = (gaugeData[0].value / (item.count)).toFixed(2);
+                    gaugeData[1].value = (gaugeData[1].value / (item.count)).toFixed(2);
+                    gaugeData[2].value = (gaugeData[2].value / (item.count)).toFixed(2);
+                }
+            })
+        })
+        myChart2.setOption({
+            series: [
+                {
+                    data: gaugeData,
+                    pointer: {
+                        show: false
+                    }
+                }
+            ]
+        });
+    }, 2000);
+
+    option2 && myChart2.setOption(option2);
+
+
+    var chartDom3 = document.getElementById('Col');
+    var myChart3 = echarts.init(chartDom3);
+    var option3;
+    const data = [];
+
+    option3 = {
+        xAxis: {
+            max: 'dataMax'
+        },
+        yAxis: {
+            type: 'category',
+            data: ['医疗护理', '家政服务', '法律维权', '老年教育', '理发','康复训练'],
+            inverse: true,
+            animationDuration: 300,
+            animationDurationUpdate: 300,
+            max: 5 // only the largest 3 bars will be displayed
+        },
+        series: [
+            {
+                realtimeSort: true,
+                name: 'X',
+                type: 'bar',
+                data: data,
+                label: {
+                    show: true,
+                    position: 'right',
+                    valueAnimation: true
+                }
+            }
+        ],
+        legend: {
+            show: true
+        },
+        animationDuration: 0,
+        animationDurationUpdate: 3000,
+        animationEasing: 'linear',
+        animationEasingUpdate: 'linear'
+    };
+    function run() {
+        myChart3.setOption({
+            series: [
+                {
+                    type: 'bar',
+                    data
+                }
+            ]
+        });
+    }
+    setTimeout(function () {
+        run();
+        fetch("/echarts/Col").then(response => response.json()).then(res=>{
+            res.forEach(item => {
+                option3.series[0].data.push({name: item.name,value: item.count})
+            })
+
+            console.log(option3)
+            option3 && myChart3.setOption(option3);
+        })
+    }, 0);
+    setInterval(function () {
+        run();
+        fetch("/echarts/Col").then(response => response.json()).then(res=>{
+            res.forEach(item => {
+                option3.series[0].data.push({name: item.name,value: item.count})
+            })
+
+            console.log(option3)
+            option3 && myChart3.setOption(option3);
+        })
+    }, 3000);
+    option3 && myChart3.setOption(option3);
+
+
+</script>
+</body>
+</html>

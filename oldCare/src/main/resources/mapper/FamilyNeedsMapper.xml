@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.oldCare.mapper.FamilyNeedsMapper">
+
+    <resultMap id="BaseResultMap" type="com.project.oldCare.entity.FamilyNeeds">
+            <id property="familyNeedsId" column="family_needs_id" jdbcType="INTEGER"/>
+            <result property="familyNumber" column="family_number" jdbcType="INTEGER"/>
+            <result property="fullName" column="full_name" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="details" column="details" jdbcType="VARCHAR"/>
+            <result property="submissionTime" column="submission_time" jdbcType="DATE"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="examineState" column="examine_state" jdbcType="VARCHAR"/>
+            <result property="examineReply" column="examine_reply" jdbcType="VARCHAR"/>
+            <result property="recommend" column="recommend" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        family_needs_id,family_number,full_name,
+        title,details,submission_time,
+        remarks,examine_state,examine_reply,
+        recommend,create_time,update_time
+    </sql>
+</mapper>

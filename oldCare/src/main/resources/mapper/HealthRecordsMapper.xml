@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.oldCare.mapper.HealthRecordsMapper">
+
+    <resultMap id="BaseResultMap" type="com.project.oldCare.entity.HealthRecords">
+            <id property="healthRecordsId" column="health_records_id" jdbcType="INTEGER"/>
+            <result property="nurseNo" column="nurse_no" jdbcType="VARCHAR"/>
+            <result property="seniorCitizenNumber" column="senior_citizen_number" jdbcType="VARCHAR"/>
+            <result property="nameOfTheElderly" column="name_of_the_elderly" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="weight" column="weight" jdbcType="VARCHAR"/>
+            <result property="bloodPressure" column="blood_pressure" jdbcType="VARCHAR"/>
+            <result property="pulse" column="pulse" jdbcType="VARCHAR"/>
+            <result property="temperature" column="temperature" jdbcType="VARCHAR"/>
+            <result property="recordTime" column="record_time" jdbcType="DATE"/>
+            <result property="health" column="health" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        health_records_id,nurse_no,senior_citizen_number,
+        name_of_the_elderly,age,weight,
+        blood_pressure,pulse,temperature,
+        record_time,health,create_time,
+        update_time
+    </sql>
+</mapper>

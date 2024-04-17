@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.oldCare.mapper.DrugManagementMapper">
+
+    <resultMap id="BaseResultMap" type="com.project.oldCare.entity.DrugManagement">
+            <id property="drugManagementId" column="drug_management_id" jdbcType="INTEGER"/>
+            <result property="drugNo" column="drug_no" jdbcType="VARCHAR"/>
+            <result property="drugName" column="drug_name" jdbcType="VARCHAR"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
+            <result property="effect" column="effect" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="INTEGER"/>
+            <result property="inventoryQuantity" column="inventory_quantity" jdbcType="INTEGER"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="recommend" column="recommend" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        drug_management_id,drug_no,drug_name,
+        picture,effect,price,
+        inventory_quantity,remarks,recommend,
+        create_time,update_time
+    </sql>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.oldCare.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.project.oldCare.entity.User">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="enable" column="enable" jdbcType="TINYINT"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phonenumber" column="phonenumber" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="CHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="BIGINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="BIGINT"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="BIGINT"/>
+
+
+        <!-- 其他属性映射 -->
+        <result property="roles" column="roles" javaType="java.util.List" jdbcType="VARCHAR"
+                typeHandler="com.project.oldCare.handler.StringToListHandler"/>
+    </resultMap>
+
+
+
+    <sql id="Base_Column_List">
+        id,user_name,nick_name,
+        password,enable,email,
+        phonenumber,sex,avatar,
+        create_by,create_time,update_by,
+        update_time,del_flag,role_id,roles
+    </sql>
+</mapper>

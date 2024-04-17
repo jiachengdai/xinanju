@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.oldCare.mapper.NeedsOfTheElderlyMapper">
+
+    <resultMap id="BaseResultMap" type="com.project.oldCare.entity.NeedsOfTheElderly">
+            <id property="needsOfTheElderlyId" column="needs_of_the_elderly_id" jdbcType="INTEGER"/>
+            <result property="seniorCitizenNumber" column="senior_citizen_number" jdbcType="INTEGER"/>
+            <result property="fullName" column="full_name" jdbcType="VARCHAR"/>
+            <result property="needId" column="need_id" jdbcType="INTEGER"/>
+            <result property="details" column="details" jdbcType="VARCHAR"/>
+            <result property="submissionTime" column="submission_time" jdbcType="DATE"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="examineState" column="examine_state" jdbcType="VARCHAR"/>
+            <result property="examineReply" column="examine_reply" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        needs_of_the_elderly_id,senior_citizen_number,full_name,
+        need_id,details,submission_time,
+        remarks,examine_state,examine_reply,
+        create_time,update_time
+    </sql>
+</mapper>

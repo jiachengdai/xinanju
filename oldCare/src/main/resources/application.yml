@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.130.182.94:3306/old_care?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false
+    username: old_care
+    password: 12345
+  mvc:
+    servlet:
+      load-on-startup: 10
+
+
+#  security:
+#    user:
+#      name: admin
+#      password: 1234
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印执行的sql语句
+    map-underscore-to-camel-case: true # 开启驼峰命名法
+  mapper-locations: classpath:mapper/*.xml
+
+  ##  thymeleaf配置
+  thymeleaf:
+    cache: false
+#jwt配置
+wyt:
+  jwt:
+    header: Authorization
+    expire: 604800   #7天  以秒为单位
+    secret: c1d0f6ba-cd6a-fdf2-b67f
+
+
+
+

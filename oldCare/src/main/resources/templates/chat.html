@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: #f0f2f5; /* 添加背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #all {
+            border-radius: 7px;
+            background-color: #ecf0ff;
+            width: 1000px;
+            height: 750px;
+
+        }
+
+        #box {
+
+            display: flex;
+
+        }
+
+        .sysTip {
+            display: inline-block;
+            padding: 0px;
+            margin-bottom: 10px;
+
+            border: 4px solid;
+            border-color: #d1ddff;
+
+            /*border-color: #6692fe;*/
+
+            background-color:   #f5f7fb;
+            border-radius: 3%;
+        }
+
+
+        #left {
+            height: 600px;
+            flex: 2.5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #right {
+            height: 600px;
+            flex: 7.5;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        #SysMessages {
+            display: flex;
+            flex-direction: column;
+            height: 95%; /* 让SysMessages铺满父容器的高度 */
+        }
+
+        #onlineList, #broadcastMes {
+            display: flex;
+            flex-direction: column;
+            color: black;
+            flex: 1;
+            height: 50%; /* 让onlineList和broadcastMes平分SysMessages的高度 */
+            margin-bottom: 20px;
+        }
+
+        #selfInfo {
+            text-align: center;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+        }
+
+
+        #content {
+            background-color: #d1ddff;
+            overflow-y: auto; /* 默认隐藏 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #eaeaea;
+            width: 729px; /* 或者根据需要设置宽度 */
+            height:421px; /* 根据需要设置高度 */
+            border-radius: 3%;
+            text-align: center;
+            margin-left: 8px;
+        }
+
+
+        #content:hover {
+
+            overflow-y: auto; /* 悬停时显示 */
+        }
+        #content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        #content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        #hylist {
+            overflow-y: hidden; /* 默认隐藏滚动条 */
+            max-height: 400px; /* 设置最大高度，以防止内容过长时滚动条过于长 */
+        }
+
+        #hylist:hover {
+            overflow-y: auto; /* 悬停时显示滚动条 */
+        }
+
+        #hylist::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #hylist::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #hylist::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        #hylist::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        #xtlist{
+            overflow-y: hidden; /* 默认隐藏滚动条 */
+            max-height: 400px; /* 设置最大高度，以防止内容过长时滚动条过于长 */
+
+        }
+        #xtlist:hover {
+            overflow-y: auto; /* 悬停时显示滚动条 */
+        }
+
+        #xtlist::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #xtlist::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #xtlist::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        #xtlist::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .name_list{
+
+            background-color: #f5f7fb;
+            width: 100%;
+            height: 40px;
+        }
+        .name_list:hover{
+            background-color: #ffffff;
+        }
+        #username {
+            display: flex;
+            margin: 0 auto;
+            width:  auto;
+            height: auto;
+            text-align: center;
+        }
+
+        #status {
+            color: #1dd31d;
+            font-weight: bold;
+            margin-right: 20px; /* 根据需要调整右边距离 */
+            vertical-align: text-top;
+        }
+
+
+        #mes_left {
+            display: flex; /* 使用 Flexbox 布局 */
+            margin-left: 5px; /* 保留原有的 margin-right */
+            align-self: flex-start; /* 保留原有的 align-self */
+        }
+        #mes_left img {
+            margin-right: 6px; /* 调整图片与气泡之间的间距 */
+            width: 30px;
+            height: 30px;
+        }
+
+        #mes_right {
+            display: flex; /* 使用 Flexbox 布局 */
+            margin-right: 5px; /* 保留原有的 margin-right */
+            align-self: flex-end; /* 保留原有的 align-self */
+        }
+
+        #mes_right img {
+
+            width: 30px;
+            height: 30px;
+            margin-left: 6px;
+        }
+
+
+
+        .bubble {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+            text-align: left;
+        }
+
+        .green {
+            background-color: lightgreen;
+
+        }
+
+        .gray {
+            background-color: lightgray;
+
+        }
+        .bubble {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word; /* 让文字自动换行 */
+            text-align: left; /* 文字左对齐 */
+            overflow-wrap: break-word; /* 兼容性更好的自动换行方式 */
+            width: 200px; /* 固定气泡的宽度 */
+        }
+
+        #mes_left img, #mes_right img {
+            width: 30px;
+            height: 30px;
+            margin: 0 6px; /* 将图片和气泡之间的间距设置为相同 */
+        }
+
+        /*#mes_right{*/
+        /*    float: right;*/
+        /*    background-color: red;*/
+        /*    text-align: right;*/
+        /*}*/
+        #new {
+            margin: 0px;
+        }
+
+        .top {
+            height: 40px;
+        }
+
+        #sendMsg {
+            margin-top: 3px;
+            height: 20%;
+            border: 2px none #eaeaea;
+            border-top-style: solid;
+        }
+
+        #input {
+            margin-left: 8px;
+            margin-top: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75%; /* 调整高度为30% */
+            width: 729px; /* 调整宽度为90% */
+
+        }
+
+
+        #input_text {
+            background-color: #fcfafa;
+            border: 1px solid #ccc; /* 添加边框 */
+            border-radius: 5px; /* 添加圆角 */
+            padding: 8px; /* 添加内边距 */
+            width: 100%; /* 使其宽度充满容器 */
+            resize: none; /* 禁止用户调整大小 */
+            height: 85%;
+            font-size: 14px; /* 设置字体大小 */
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        #input_text:focus {
+            outline: none; /* 移除聚焦时的外边框 */
+            border-color: #6e90d4; /* 修改聚焦时的边框颜色 */
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); /* 添加聚焦时的阴影效果 */
+        }
+
+        #sendBtn {
+            margin-top: 4px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+
+        #submit {
+
+            align-items: center;
+            appearance: none;
+            background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+            border: 0;
+            border-radius: 6px;
+            box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            font-family: SimSun, serif;
+            height: 20%;
+            /*justify-content: flex-end;*/
+            line-height: 1;
+            list-style: none;
+            overflow: hidden;
+            padding-left: 16px;
+            padding-right: 16px;
+            position: relative;
+            text-align: left;
+            text-decoration: none;
+            transition: box-shadow .15s, transform .15s;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            will-change: box-shadow, transform;
+            font-size: 18px;
+            margin-left: auto;
+            margin-right: 12px;
+
+        }
+
+        #new {
+            text-align: center;
+
+        }
+
+        #status {
+            text-align: right;
+        }
+
+        .sysInfo_title{
+            margin-bottom: -10px;
+            margin-top: 3px;
+            font-weight: bold;
+            text-align: center;
+            height: 30px;
+        }
+        .avatar{
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+        }
+        .name_info{
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .broad_list{
+            height: 25px;
+        }
+    </style>
+
+</head>
+
+<body>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.0.min.js"></script>
+
+<div id="all">
+
+    <div id="selfInfo">
+        <h3 style="text-align: center" id="username"></h3>
+        <span style="text-align: right" id="status"> </span>
+    </div>
+
+    <hr style="color: #a2a9b6;box-shadow: 0 0px 1px rgba(0, 0, 0, 0.2);">
+    <div id="box" style="display: flex">
+
+
+        <div id="left" style="display: inline-block;">
+            <div class="top">  </div>
+            <div id="SysMessages">
+                <div class="sysTip" id="onlineList" style="  margin-bottom: 10px;">
+                    <div class="sysInfo_title">在线列表</div>
+                    <hr>
+                    <div id="hylist">
+
+
+                    </div>
+                </div>
+
+                <div class="sysTip" id="broadcastMes" style="display: flex;">
+                    <div class="sysInfo_title">广播消息</div>
+                    <hr>
+
+                    <div id="xtlist">
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!--左侧：显示在线列表和广播消息-->
+
+        </div>
+
+
+        <!--右侧：显示聊天框-->
+        <div id="right" style="display: inline-block;">
+
+            <div class="top"><h4 id="new"> 在线聊天室</h4></div>
+            <div id="content">
+
+
+            </div>
+            <div id="sendMsg">
+
+                <div id="input">
+                    <textarea id="input_text"></textarea>
+
+                </div>
+                <div id="sendBtn">
+                    <button id="submit">发送</button>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!--    <div id="username">张三</div>-->
+
+
+<br>
+
+
+<script>
+
+    var username;
+    var toName;
+
+    function scrollToBottom() {
+        var content = document.getElementById("content");
+        content.scrollTop = content.scrollHeight;
+    }
+    function scrollToBottomBroad() {
+        var content = document.getElementById("xtlist");
+        content.scrollTop = content.scrollHeight;
+    }
+    showChat = function (name) {
+
+        toName = name;
+        $("#content").html("");
+        $("#new").html("当前正在与" + toName + "聊天");
+        var chatdata = sessionStorage.getItem(toName);
+        if (chatdata != null) {
+            $("#content").html(chatdata);
+        }
+        scrollToBottom();
+    }
+    $('#input_text').keydown(function (event) {
+        // 检测是否按下 Enter 键（keyCode 为 13）
+        if (event.keyCode === 13) {
+            event.preventDefault(); // 阻止默认的换行行为
+            $("#submit").click(); // 调用发送消息的函数
+        }
+    });
+    $(function () {
+        var token = localStorage.getItem("token");
+
+        console.log(token)
+
+        $.ajax({
+            url: "user",
+            headers: {
+                'Authorization': token
+            },
+            success: function (res) {
+                console.log(res)
+                username = res.data.userName;
+                $("#username").html("    用户：" + username)
+                $("#status").html("<img src='https://big-event0713.oss-cn-shanghai.aliyuncs.com/b6a1b8b5-ca52-43de-827a-c2d4e636cbb1.png' style='height: 20px;width: 20px; padding-right: 5px;  vertical-align: middle;'><span style='display: inline-block; vertical-align: middle;color: #0d9320' >在线</span>")
+            },
+            async: false
+        })
+
+
+        var ws = new WebSocket("ws://8.130.182.94:8080/chat");
+        ws.onopen = function (ev) {
+            $("#username").html("    用户：" + username);
+        }
+        ws.onmessage = function (ev) {
+
+            var datastr = ev.data;
+
+            var res = JSON.parse(datastr);
+            if (res.system) {
+                //系统消息
+                var names = res.message;
+                var userlistStr = "";
+                var broadcastListStr = "";
+                var temp01="<div class='name_list' onclick='showChat(\"";
+                var temp02="\")'><img src='https://big-event0713.oss-cn-shanghai.aliyuncs.com/a5199af8-b22b-4ea4-8f99-57916e775e65.png' class='avatar'><a class='name_info' style=\"text-align:center; display:inline-block;\">";
+
+                var temp03 = "</a></div></br>";
+
+
+                var temp = "";
+                var i=0;
+                for (var name of names) {
+
+
+                    if (name != username) {
+                        temp = temp01 + name + temp02 +name + temp03;
+                        userlistStr = userlistStr + temp;
+                        broadcastListStr += "<div style='text-align: center' class='broad_list'>" + name + "上线了</div>";
+                        scrollToBottomBroad();
+                    }
+                }
+
+
+                $("#hylist").html(userlistStr);
+                $("#xtlist").html(broadcastListStr);
+            } else {
+                var str = "<div id='mes_left' > "+"<img src='https://big-event0713.oss-cn-shanghai.aliyuncs.com/a5199af8-b22b-4ea4-8f99-57916e775e65.png' >" +"<div class='bubble gray'>"+ res.message + "</div>"  + "</div>";
+
+
+                //不是系统消息
+                if (toName == res.fromName)
+                    $('#content').append(str);
+                scrollToBottom();
+
+                var chatdata = sessionStorage.getItem(res.fromName);
+                if (chatdata != null) {
+                    str = chatdata + str;
+
+                }
+                sessionStorage.setItem(res.fromName, str);
+            }
+        }
+        ws.onclose = function (ev) {
+            $("#username").html("用户：" + username);
+            $("#status").html("<img src='https://big-event0713.oss-cn-shanghai.aliyuncs.com/a5199af8-b22b-4ea4-8f99-57916e775e65.png' style='height: 20px;width: 20px; padding-right: 5px;  vertical-align: middle;'><span style='display: inline-block; vertical-align: middle;color: #f63a3a' >离线</span>")
+
+        }
+
+        $("#submit").click(function () {
+            //获取输入内容
+            var data = $("#input_text").val();
+            $("#input_text").val('');
+            var json = {"toName": toName, "message": data}
+            var str = "<div id='mes_right' > "+ "<div class='bubble green'>"+ data + "</div>"  +"<img src='https://big-event0713.oss-cn-shanghai.aliyuncs.com/b6a1b8b5-ca52-43de-827a-c2d4e636cbb1.png' >"+ "</div>";
+
+            $("#content ").append(str);
+            scrollToBottom();
+            var chatdata = sessionStorage.getItem(toName);
+            if (chatdata != null) {
+                str = chatdata + str
+            }
+            sessionStorage.setItem(toName, str);
+            ws.send(JSON.stringify(json));
+
+
+        })
+
+    });
+</script>
+</body>
+</html>
+
